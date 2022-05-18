@@ -16,8 +16,6 @@ export function timeToMixJuice(name) {
       return 0.5;
       break;
     case "Energizer":
-      return 1.5;
-      break;
     case "Green Garden":
       return 1.5;
       break;
@@ -40,25 +38,18 @@ export function timeToMixJuice(name) {
  * @param {string[]} limes
  * @returns {number} number of limes cut
  */
+
+const WEDGES_PER_LIME_SIZE = {
+  small: 6,
+  medium: 8,
+  large: 10
+}
+
 export function limesToCut(wedgesNeeded, limes) {
-  let totalWedges = 0;
   let limeCount = 0;
-  while(limes.length > 0 && totalWedges < wedgesNeeded){
-    switch(limes[0]){
-      case "small":
-        totalWedges += 6;
-        break;
-      case "medium":
-        totalWedges += 8;
-        break;
-      case "large":
-        totalWedges += 10;
-        break;
-      default: 
-      break;
-    }
-    limes.shift();
-    limeCount++
+  while(limes.length > 0 && wedgesNeeded > 0){
+    wedgesNeeded -= WEDGES_PER_LIME_SIZE[limes.shift()];
+    limeCount++;
   }
   return limeCount;
 }
